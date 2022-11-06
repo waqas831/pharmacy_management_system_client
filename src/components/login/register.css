@@ -1,0 +1,101 @@
+.login{
+   
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100%;
+}
+.login_title{
+    font-size:30px;
+    color:white;
+    border-bottom:2px solid white;
+    text-transform: uppercase;
+}
+.div_main{
+    width:100%;
+}
+.div_main >input{
+    width:100%;
+    padding: 7px;
+}
+.div_main >input::placeholder{
+    text-align: center;
+}
+.login_form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /* justify-content: center; */
+}
+.login_form >label{
+    font-size: 20px;
+    color: white;
+    text-transform: capitalize;
+    margin-top: 9px;
+    margin-bottom: 0px
+}
+/* .login_form > input{
+    border: none;
+    background-color: white;
+    border-bottom: 2px solid lightgrey;
+    padding-left: 132px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    text-align: start;
+} */
+.login_form > input:focus{
+    outline:none;
+}
+.login_btn{
+    border: none;
+    outline: none;
+    background-color: rgb(159 80 238);
+    color: white;
+    margin-top: 23px;
+    padding: 2px
+}
+.signup_btn_redirect{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;   
+    padding: 0 15px;
+    margin: 0px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: inset none;
+    height: 25px;
+    background-color: #462f2f00;
+    opacity: 0.7;
+    color: white;
+    outline: none
+}
+
+.signup_btn_redirect >button{
+    padding: 0 15px;
+    margin:0px;
+    border:none;
+    display: flex;
+    font-size: 17px;
+    justify-content: center;
+    align-items: center;
+    outline:inset none;
+    height: 25px;
+    outline-offset: 0ch;
+    /* background-color: rgb(159 80 238); */
+     /* background-image: linear-gradient(#055160,rgba(192, 196, 201, 0.2)); */
+}
+.signup_btn_redirect >span{
+    text-transform: capitalize;
+    text-transform: capitalize;
+    font-size: 10px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
