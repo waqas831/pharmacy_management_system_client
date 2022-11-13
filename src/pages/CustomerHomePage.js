@@ -12,15 +12,15 @@ const CustomerHomePage = () => {
 
   const data = mockUsers(20);
   const { Column, HeaderCell, Cell } = Table;
-  const customerCall=async ()=>{
-      const mydata=await getCustomers();
-      console.log("mydata",mydata.data);
-      setCustomers(mydata.data);
-  }
+  const customerCall = async () => {
+    const mydata = await getCustomers();
+    console.log("mydata", mydata.data);
+    setCustomers(mydata.data);
+  };
 
   useEffect(() => {
-   customerCall();
-  },[]);
+    customerCall();
+  }, []);
 
   return (
     <DefaultLayout>

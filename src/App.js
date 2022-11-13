@@ -15,6 +15,8 @@ import Medicines from "./components/admin/Medicines";
 import AdminPharmasist from "./components/admin/AdminPharmasist";
 import PharmacyProducts from "./components/products/PharmacyProducts";
 import Manufactures from "./components/manufactures/Manufactures";
+import Customers from "./components/customers/Customers";
+import Supplier from "./components/supplier/Supplier";
 function App() {
   const [token, setToken] = React.useState("");
   const [user, setUser] = React.useState("");
@@ -23,7 +25,7 @@ function App() {
   useEffect(() => {
     const user = localStorage.getItem("user");
     const token = localStorage.getItem("token");
-    const userParse = JSON.parse(user);
+    const userParse = user && user !== "undefined" ? JSON.parse(user) : null;
     setToken(token);
     setRole(userParse?.role);
     setUser(user);
@@ -49,6 +51,7 @@ function App() {
 export default App;
 
 export const adminRoutes = () => {
+  console.log("admin routes");
   return (
     <>
       <Route path="/" element={<Homepage />} />
@@ -56,6 +59,8 @@ export const adminRoutes = () => {
       <Route path="/products" element={<PharmacyProducts />} />
       <Route path="/medicines" element={<Medicines />} />
       <Route path="/manufactures" element={<Manufactures />} />
+      <Route path="/customers" element={<Customers />} />
+      <Route path="/supplier" element={<Supplier />} />
     </>
   );
 };

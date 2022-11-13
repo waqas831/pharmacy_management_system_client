@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "../DefaultLayout";
 import AddManufactures from "./AddManufactures";
+import { getManufacture } from "../../services/manufactureService";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 
 const Manufactures = () => {
+  const [manufactures, setManufactures] = useState([]);
+  const getManufacturesData = async () => {
+    const res = await getManufacture();
+    setManufactures(res.data.items);
+  };
+
+  useEffect(() => {
+    getManufacturesData();
+
+  }, []);
+
   const rowss = [
     {
       id: 1,
@@ -48,20 +60,20 @@ const Manufactures = () => {
   ];
 
   const columns = [
-    { field: "col1", headerName: "First Nmae", width: 150 },
-    { field: "col2", headerName: "Last Name", width: 150 },
-    { field: "col3", headerName: "Age", width: 150 },
-    { field: "col4", headerName: "Gender", width: 150 },
-    { field: "col5", headerName: "Phone Number", width: 150 },
-    { field: "col6", headerName: "Email", width: 150 },
-    { field: "col7", headerName: "Address", width: 150 },
+    { field: "companyName", headerName: "First Nmae", width: 150 },
+    { field: "address", headerName: "Last Name", width: 150 },
+    { field: "city", headerName: "Address", width: 150 },
+    { field: "email", headerName: "Email", width: 150 },
+ 
   ];
   return (
     <>
       <DefaultLayout>
-        <AddManufactures />
+        <AddManufactures setManufactures={setManufactures} />
         <div style={{ height: 430, width: "100%" }}>
-          <DataGrid rows={rowss} columns={columns} />
+          <DataGrid rows={manufactures} columns={columns}
+           getRowId={(row) => row._id}
+          />
         </div>
       </DefaultLayout>
     </>

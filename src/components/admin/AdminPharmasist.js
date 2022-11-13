@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "../DefaultLayout";
 import AddPharmasistModel from "../../models/AddPharmasistModel";
+import { getPharmasist } from "../../services/pharmasistService";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 
 const AdminPharmasist = () => {
+  const [pharmasist, setPharmasist] = useState([]);
+
+  useEffect(() => {
+    getPharmasist().then((res) => {
+      console.log("res", res);
+      setPharmasist(res.data);
+    });
+  }, []);
+
   const rowss = [
     {
       id: 1,
@@ -48,20 +58,41 @@ const AdminPharmasist = () => {
   ];
 
   const columns = [
-    { field: "col1", headerName: "First Nmae", width: 150 },
-    { field: "col2", headerName: "Last Name", width: 150 },
-    { field: "col3", headerName: "Age", width: 150 },
-    { field: "col4", headerName: "Gender", width: 150 },
-    { field: "col5", headerName: "Phone Number", width: 150 },
-    { field: "col6", headerName: "Email", width: 150 },
-    { field: "col7", headerName: "Address", width: 150 },
+    { field: "fname", headerName: "First Nmae", width: 120, editable: true },
+    { field: "lname", headerName: "Last Name", width: 120 },
+    { field: "gender", headerName: "Age", width: 120 },
+    { field: "age", headerName: "Gender", width: 130 },
+    { field: "address", headerName: "Phone Number", width: 150 },
+    { field: "email", headerName: "Email", width: 150 },
+    { field: "password", headerName: "Address", width: 150 },
+    {
+      field: "col8",
+      headerName: "Action",
+      width: 130,
+      renderCell: (params) => (
+        <strong>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              console.log("777777777777777", params);
+            }}
+          >
+            Delete
+          </button>
+        </strong>
+      ),
+    },
   ];
   return (
     <>
       <DefaultLayout>
-        <AddPharmasistModel />
+        <AddPharmasistModel setPharmasist={setPharmasist} />
         <div style={{ height: 430, width: "100%" }}>
-          <DataGrid rows={rowss} columns={columns} />
+          <DataGrid
+            rows={pharmasist}
+            columns={columns}
+            getRowId={(row) => row._id}
+          />
         </div>
       </DefaultLayout>
     </>

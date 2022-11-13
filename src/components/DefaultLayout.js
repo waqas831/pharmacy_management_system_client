@@ -12,7 +12,7 @@ import {
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import "../styles/DefaultLayout.css";
-import Manufactures from './manufactures/Manufactures';
+import Manufactures from "./manufactures/Manufactures";
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = (props) => {
@@ -135,7 +135,7 @@ export const AdminLayout = (props) => {
   return (
     <>
       <Menu.Item key="/adminPharmasist" icon={<UserOutlined />}>
-        <Link to="/adminPharmasist">Cutomers</Link>
+        <Link to="/adminPharmasist">Pharmasist</Link>
       </Menu.Item>
       <Menu.Item key="/sallers" icon={<CopyOutlined />}>
         <Link to="/sallers">Sallers</Link>
@@ -145,6 +145,12 @@ export const AdminLayout = (props) => {
       </Menu.Item>
       <Menu.Item key="/manufactures" icon={<UnorderedListOutlined />}>
         <Link to="/manufactures">Manufactures</Link>
+      </Menu.Item>
+      <Menu.Item key="/customers" icon={<UnorderedListOutlined />}>
+        <Link to="/customers">Customers</Link>
+      </Menu.Item>
+      <Menu.Item key="/supplier" icon={<UnorderedListOutlined />}>
+        <Link to="/supplier">Supplier</Link>
       </Menu.Item>
     </>
   );

@@ -1,36 +1,75 @@
 import { FormLabel, Input } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { addPharmasist, getPharmasist } from "../services/pharmasistService";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-const AddPharmasistModel = ({setPharmasist}) => {
-  const [inputs, setInputs] = useState({});
-  const [open, setOpen] = React.useState(false);
+import Typography from "@mui/material/Typography";
+import Customers from "./Customers";
+import {
+  addCustomer,
+  getCustomers,
+  editCustomer,
+} from "../../services/customerService";
+const AddCustomer = ({
+  setCustomers,
+  setOpen,
+  open,
+  editMode,
+  setEditMode,
+  singleCustomer,
+}) => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+  const [inputs, setInputs] = useState({ singleCustomer });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [customerId, setCustomersId] = useState();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await addPharmasist(inputs).then((res) => {
-      getPharmasist().then((res) => {
-        setPharmasist(res.data);
+    if (editMode) {
+      const data = {
+        name: inputs.name,
+        age: inputs.age,
+        address: inputs.address,
+        email: inputs.email,
+        gender: inputs.gender,
+        number: inputs.number,
+      };
+      await editCustomer(customerId, data).then((res) => {
+        if (res.data.msg === "Success") {
+          getCustomers().then((res) => {
+            setCustomers(res.data);
+          });
+          setOpen(false);
+        } else {
+          alert("something went wrong");
+        }
       });
-      setOpen(false);
-    });
+      setEditMode(false);
+    } else {
+      await addCustomer(inputs).then((res) => {
+        if (res.data.msg === "Success") {
+          getCustomers().then((res) => {
+            setCustomers(res.data);
+          });
+          setOpen(false);
+        } else {
+          alert("something went wrong");
+        }
+      });
+    }
   };
 
   const handleChange = (event) => {
@@ -39,10 +78,16 @@ const AddPharmasistModel = ({setPharmasist}) => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  useEffect(() => {
+    setInputs((values) => ({ ...values, ...singleCustomer }));
+    console.log("singleCustomer", singleCustomer);
+    setCustomersId(singleCustomer?._id);
+  }, [singleCustomer]);
+
   return (
     <>
       <div>
-        <Button onClick={handleOpen}>Add Pharmasist</Button>
+        <Button onClick={handleOpen}>Add Customer</Button>
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -60,26 +105,11 @@ const AddPharmasistModel = ({setPharmasist}) => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <FormLabel style={{ width: "40%" }}>
-                    Enter Fist name:
-                  </FormLabel>
+                  <FormLabel style={{ width: "40%" }}>Enter Name:</FormLabel>
                   <Input
                     type="text"
-                    name="fname"
-                    value={inputs.fname || ""}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <FormLabel style={{ width: "40%" }}>
-                    Enter Last name:
-                  </FormLabel>
-                  <Input
-                    type="text"
-                    name="lname"
-                    value={inputs.lname || ""}
+                    name="name"
+                    value={inputs.name || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -114,6 +144,19 @@ const AddPharmasistModel = ({setPharmasist}) => {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <FormLabel style={{ width: "40%" }}>
+                    Enter your mobile number:
+                  </FormLabel>
+                  <Input
+                    type="text"
+                    name="number"
+                    value={inputs.number || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <FormLabel style={{ width: "40%" }}>
                     Enter your address:
                   </FormLabel>
                   <Input
@@ -137,21 +180,6 @@ const AddPharmasistModel = ({setPharmasist}) => {
                   />
                 </div>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <FormLabel style={{ width: "40%" }}>
-                    Enter your password:
-                  </FormLabel>
-                  <Input
-                    id="my-input"
-                    type="text"
-                    name="password"
-                    value={inputs.password || ""}
-                    onChange={handleChange}
-                    aria-describedby="my-helper-text"
-                  />
-                </div>
-                <div
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -169,4 +197,4 @@ const AddPharmasistModel = ({setPharmasist}) => {
   );
 };
 
-export default AddPharmasistModel;
+export default AddCustomer;

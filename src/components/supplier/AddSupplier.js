@@ -1,39 +1,35 @@
 import { FormLabel, Input } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import {
-  addManufacture,
-  getManufacture,
-} from "../../services/manufactureService";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Typography from "@mui/material/Typography";
+import { addCustomer } from "../../services/customerService";
+import { getSupplier, addSupplier } from "../../services/supplierService";
+
 const style = {
   position: "absolute",
-  top: "50%",
-  left: "50%",
+  top: "40%",
+  left: "55%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: "50%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
-const AddManufactures = ({ setManufactures }) => {
+const AddSupplier = ({setSuppliers}) => {
   const [inputs, setInputs] = useState({});
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const handleSubmit = (event) => {
+  const [supplier, setSupplier] = useState([]);
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    addManufacture(inputs).then((res) => {
-      console.log("res", res);
-      getManufacture().then((res) => {
-        console.log("res", res);
-        setManufactures(res.data.items);
+    await addSupplier(inputs).then((res) => {
+      getSupplier().then((res) => {
+        setSuppliers(res.data);
       });
       setOpen(false);
     });
@@ -45,9 +41,20 @@ const AddManufactures = ({ setManufactures }) => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  const customersCallAndMarchant = () => {
+    getSupplier().then((res) => {
+      console.log("res", res);
+      setSupplier(res.data);
+    });
+  };
+
+  useEffect(() => {
+    customersCallAndMarchant();
+  }, []);
+
   return (
     <div>
-      <Button onClick={handleOpen}>Add Manufactor</Button>
+      <Button onClick={handleOpen}>Add Supplier</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -61,34 +68,45 @@ const AddManufactures = ({ setManufactures }) => {
       >
         <Fade in={open}>
           <Box sx={style}>
+            <h2
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                paddingBottom: "5px",
+              }}
+            >
+              Add Supplier
+            </h2>
             <form onSubmit={handleSubmit}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <FormLabel style={{ width: "40%" }}>
-                  Enter Company name:
-                </FormLabel>
+                <FormLabel style={{ width: "40%" }}>Enter Name:</FormLabel>
                 <Input
                   type="text"
-                  name="companyName"
-                  value={inputs.companyName || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <FormLabel style={{ width: "40%" }}>Enter address:</FormLabel>
-                <Input
-                  type="text"
-                  name="address"
-                  value={inputs.address || ""}
+                  name="name"
+                  value={inputs.name || ""}
                   onChange={handleChange}
                 />
               </div>
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <FormLabel style={{ width: "40%" }}>Enter cityName:</FormLabel>
+                <FormLabel style={{ width: "40%" }}>
+                  Enter your mobile number:
+                </FormLabel>
                 <Input
                   type="text"
-                  name="cityName"
-                  value={inputs.cityName || ""}
+                  name="phone"
+                  value={inputs.phone || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <FormLabel style={{ width: "40%" }}>
+                  Enter your address:
+                </FormLabel>
+                <Input
+                  type="text"
+                  name="address"
+                  value={inputs.address || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -103,7 +121,6 @@ const AddManufactures = ({ setManufactures }) => {
                   onChange={handleChange}
                 />
               </div>
-
               <div
                 style={{
                   display: "flex",
@@ -121,4 +138,4 @@ const AddManufactures = ({ setManufactures }) => {
   );
 };
 
-export default AddManufactures;
+export default AddSupplier;
