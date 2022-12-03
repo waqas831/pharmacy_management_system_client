@@ -1,0 +1,62 @@
+p {
+    text-align: right;
+}
+
+input::placeholder {
+    color: #B3B3B3;
+}
+
+input {
+    padding-left: 15px;
+    color: grey;
+    box-shadow: 2px 3px 28px 1px rgba(0, 0, 0, 0.1);
+    border: 0px solid transparent;
+    border-radius: 5px;
+
+    height: 50px;
+    font-size: 40px;
+    width:'50%';
+
+    transition: all .2s ease;
+}
+input:focus {
+    outline: none;
+    box-shadow: 2px 3px 20px 1px rgba(0, 0, 0, 0.3);
+}
+.search-bar{
+    width: 100%;
+    margin-bottom: 20px;
+   
+}
+.search-bar__wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+   
+.prescription_wrapper{
+    float: right;
+    margin-left: 500px;
+ 
+}
+.prescription_heading{
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+   /* give heading to like a button border etc */
+   border: 2px solid #FFC107;
+    border-radius: 5px;
+    background-color: #FFC107;
+    color: white;
+    padding: 5px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s ease;
+
+
+   
+}
+    

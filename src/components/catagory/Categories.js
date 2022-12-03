@@ -1,29 +1,23 @@
+
 import React, { useState, useEffect } from "react";
-import DefaultLayout from "../DefaultLayout";
-import AddSupplier from "./AddSupplier";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { getSupplier } from "../../services/supplierService";
+import { getCategories } from "./../../services/categoryService";
 import SideBar from "../Sidebar/SideBar";
 
-const Supplier = () => {
-  const [suppliers, setSuppliers] = useState([]);
-  const [singleSupplier, setSingleSupplier] = useState();
-  const [editMode, setEditMode] = useState(false);
-  const [open, setOpen] = useState(false);
+const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
   useEffect(() => {
-    getSupplier().then((res) => {
+    getCategories().then((res) => {
       console.log("res", res);
-      setSuppliers(res.data);
+      setCategories(res.data);
     });
   }, []);
 
   const columns = [
     { field: "name", headerName: "Name", width: 150 },
-    { field: "phone", headerName: "Number", width: 150 },
-    { field: "email", headerName: "Email", width: 150 },
-    { field: "address", headerName: "Address", width: 150 },
     {
-      field: "col8",
+      field: "col2",
       headerName: "Action",
       width: 130,
       renderCell: (params) => (
@@ -60,10 +54,10 @@ const Supplier = () => {
               textAlign: "center",
             }}
           >
-            Suppliers List
+            Categories List
           </h3>
           <DataGrid
-            rows={suppliers}
+            rows={categories}
             columns={columns}
             getRowId={(row) => row._id}
             className="w-full h-96 p-2  rounded mb-2 shadow-lg border-none bg-white text-black"
@@ -74,4 +68,4 @@ const Supplier = () => {
   );
 };
 
-export default Supplier;
+export default Categories;

@@ -3,6 +3,7 @@ import DefaultLayout from "../DefaultLayout";
 import AddPharmasistModel from "../../models/AddPharmasistModel";
 import { getPharmasist } from "../../services/pharmasistService";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import SideBar from "../Sidebar/SideBar";
 
 const AdminPharmasist = () => {
   const [pharmasist, setPharmasist] = useState([]);
@@ -13,49 +14,6 @@ const AdminPharmasist = () => {
       setPharmasist(res.data);
     });
   }, []);
-
-  const rowss = [
-    {
-      id: 1,
-      col1: "Hello",
-      col2: "World",
-      col3: "23",
-      col4: "male",
-      col5: "03017777777",
-      col6: "waqas@gmail.com",
-      col7: "Mda road",
-    },
-    {
-      id: 1,
-      col1: "Hello",
-      col2: "World",
-      col3: "23",
-      col4: "male",
-      col5: "03017777777",
-      col6: "waqas@gmail.com",
-      col7: "Mda road",
-    },
-    {
-      id: 1,
-      col1: "Hello",
-      col2: "World",
-      col3: "23",
-      col4: "male",
-      col5: "03017777777",
-      col6: "waqas@gmail.com",
-      col7: "Mda road",
-    },
-    {
-      id: 1,
-      col1: "Hello",
-      col2: "World",
-      col3: "23",
-      col4: "male",
-      col5: "03017777777",
-      col6: "waqas@gmail.com",
-      col7: "Mda road",
-    },
-  ];
 
   const columns = [
     { field: "fname", headerName: "First Nmae", width: 120, editable: true },
@@ -70,31 +28,57 @@ const AdminPharmasist = () => {
       headerName: "Action",
       width: 130,
       renderCell: (params) => (
-        <strong>
+        <div className="flex justify-between m-3">
           <button
-            className="btn btn-danger"
+            className="bg-red-700 hover:bg-red-700 text-white text-lg font-bold rounded"
             onClick={() => {
               console.log("777777777777777", params);
             }}
           >
             Delete
           </button>
-        </strong>
+          <button
+            className="bg-red-700 hover:bg-red-700 text-white text-lg font-bold rounded ml-3"
+            onClick={() => {
+              console.log("777777777777777", params);
+            }}
+          >
+            Edit
+          </button>
+        </div>
       ),
     },
   ];
   return (
     <>
-      <DefaultLayout>
-        <AddPharmasistModel setPharmasist={setPharmasist} />
-        <div style={{ height: 430, width: "100%" }}>
+      <div style={{ display: "flex" }}>
+        <SideBar />
+
+        <div
+          className="mt-5 w-full h-96 p-1 
+          rounded mb-2 shadow-lg border-none"
+        >
+          <h3
+            style={{
+              marginLeft: "20px",
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
+            Phamasist List
+          </h3>
           <DataGrid
             rows={pharmasist}
             columns={columns}
             getRowId={(row) => row._id}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            className="w-full h-96 p-2  rounded mb-2 shadow-lg border-none bg-white text-black"
           />
         </div>
-      </DefaultLayout>
+      </div>
+      {/* <AddPharmasistModel setPharmasist={setPharmasist} /> */}
     </>
   );
 };

@@ -12,6 +12,7 @@ import {
   getCustomers,
   editCustomer,
 } from "../../services/customerService";
+import SideBar from "../Sidebar/SideBar";
 const AddCustomer = ({
   setCustomers,
   setOpen,
@@ -86,7 +87,140 @@ const AddCustomer = ({
 
   return (
     <>
-      <div>
+       <div
+      style={{ display: "flex",width:'100%' }}
+    >
+      <SideBar />
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "white",
+          padding: "20px",
+          borderRadius: "10px",
+          width:'100%',
+          boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            color: "blue",
+          }}
+        >
+          <span
+            style={{
+              textAlign: "center",
+              color: "blue",
+              marginTop: "5px",
+              marginBottom: "5px",
+            }}
+            className="badge badge-secondary"
+          >
+            Add Customer
+          </span>
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          // style the form div
+          style={{ width: "100%", margin: "auto", marginTop: "5px" }}
+        >
+          <div className="form-row flex m-2">
+            <div className="form-group col-md-6 ml-1 mr-1">
+              <label htmlFor="name">Customer name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                value={inputs.name || ""}
+                onChange={handleChange}
+                placeholder="Enter Medicine Name"
+              />
+              {/* make another fields */}
+            </div>
+            <div className="form-group col-md-6  ml-1 mr-1">
+              <label htmlFor="name">Customer age</label>
+              <input
+                type="number"
+                name="age"
+                value={inputs.age || ""}
+                onChange={handleChange}
+                className="form-control"
+                id="age"
+              />
+            </div>
+          </div>
+          {/* make form with two fields in a row */}
+          <div className="form-row flex m-2">
+            <div className="form-group col-md-6 ml-1 mr-1">
+              <label htmlFor="name">Customer Gender</label>
+              <input
+                type="text"
+                name="gender"
+                value={inputs.gender || ""}
+                onChange={handleChange}
+                className="form-control"
+                
+              />
+            </div>
+          
+          
+          </div>
+          <div className="form-row flex m-2">
+            <div className="form-group col-md-6 ml-1 mr-1">
+              <label htmlFor="name">Customer Number</label>
+              <input
+                type="text"
+                name="number"
+                value={inputs.number || ""}
+                onChange={handleChange}
+                className="form-control"
+                id="number"
+              />
+            </div>
+            <div className="form-group col-md-6 ml-1 mr-1">
+              <label htmlFor="name">Customer Address</label>
+              <input
+                type="text"
+                name="address"
+                value={inputs.address || ""}
+                onChange={handleChange}
+                className="form-control"
+                id="address"
+              />
+            </div>
+          </div>
+          <div className="form-row flex m-2">
+            <div className="form-group col-md-6 ml-1 mr-1">
+              <label htmlFor="name">Customer Email</label>
+              <input
+                type="email"
+                name="email"
+                value={inputs.email || ""}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            {/* <div className="form-group col-md-6 ml-1 mr-1">
+              <label htmlFor="name">Manufacture</label>
+              <input
+                type="text"
+                className="form-control"
+                id="manufacture"
+                name="manufacture"
+                onChange={handleChange}
+                value={inputs.manufacture}
+                placeholder="Enter Product Manufacture"
+              />
+            </div> */}
+          </div>
+       
+        
+        </form>
+      </div>
+    </div>
+      {/* <div>
         <Button onClick={handleOpen}>Add Customer</Button>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -192,7 +326,7 @@ const AddCustomer = ({
             </Box>
           </Fade>
         </Modal>
-      </div>
+      </div> */}
     </>
   );
 };

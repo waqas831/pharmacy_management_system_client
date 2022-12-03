@@ -7,6 +7,7 @@ import {
   deleteCustomer,
   editCustomer,
 } from "../../services/customerService";
+import SideBar from "../Sidebar/SideBar";
 const Customers = () => {
   const [customers, setCustomers] = React.useState([]);
   const [singleCustomer, setSingleCustomer] = React.useState();
@@ -64,33 +65,50 @@ const Customers = () => {
     },
   ];
   return (
-    <DefaultLayout>
-      {editMode ? (
-        <AddCustomer
-          setCustomers={setCustomers}
-          setOpen={setOpen}
-          open={open}
-          singleCustomer={singleCustomer}
-          setEditMode={setEditMode}
-          editMode={editMode}
-        />
-      ) : (
-        <AddCustomer
-          setCustomers={setCustomers}
-          setOpen={setOpen}
-          open={open}
-        />
-      )}
+    <div style={{ display: "flex" }}>
+      <SideBar />
 
-      <div style={{ height: 430, width: "100%" }}>
-        <DataGrid
-          rows={customers}
-          columns={columns}
-          getRowId={(row) => row._id}
-        />
+      <div
+        className="mt-5 w-full h-96 p-1 
+          rounded mb-2 shadow-lg border-none"
+      >
+        <h3
+          style={{
+            marginLeft: "20px",
+            marginBottom: "20px",
+            textAlign: "center",
+          }}
+        >
+          Customers List
+        </h3>
+        <div style={{ height: 430, width: "100%" }}>
+          <DataGrid
+            rows={customers}
+            columns={columns}
+            getRowId={(row) => row._id}
+            className="w-full h-96 p-2  rounded mb-2 shadow-lg border-none bg-white text-black"
+          />
+        </div>
       </div>
-    </DefaultLayout>
+    </div>
   );
 };
 
 export default Customers;
+
+// {editMode ? (
+//   <AddCustomer
+//   setCustomers={setCustomers}
+//     setOpen={setOpen}
+//     open={open}
+//     singleCustomer={singleCustomer}
+//     setEditMode={setEditMode}
+//     editMode={editMode}
+//     />
+//     ) : (
+//       <AddCustomer
+//       setCustomers={setCustomers}
+//       setOpen={setOpen}
+//       open={open}
+//       />
+//       )}

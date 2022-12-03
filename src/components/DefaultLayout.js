@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import "../styles/DefaultLayout.css";
 import Manufactures from "./manufactures/Manufactures";
+import Billing from './authBilling/billing/billing';
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = (props) => {
@@ -25,12 +26,12 @@ const DefaultLayout = (props) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
-    const userParse = JSON.parse(user);
+    const userParse = user && user !== "undefined" ? JSON.parse( user) : null;
     console.log("user in default", user);
     setToken(token);
     setUser(user);
     setRole(userParse?.role);
-  }, []);
+  }, [role]);
 
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -151,6 +152,12 @@ export const AdminLayout = (props) => {
       </Menu.Item>
       <Menu.Item key="/supplier" icon={<UnorderedListOutlined />}>
         <Link to="/supplier">Supplier</Link>
+      </Menu.Item>
+      <Menu.Item key="/purchase" icon={<UnorderedListOutlined />}>
+        <Link to="/purchase">Purchase</Link>
+      </Menu.Item>
+      <Menu.Item key="/billing" icon={<UnorderedListOutlined />}>
+        <Link to="/billing">Billing</Link>
       </Menu.Item>
     </>
   );
